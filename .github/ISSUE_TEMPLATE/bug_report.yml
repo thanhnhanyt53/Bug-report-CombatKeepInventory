@@ -1,0 +1,158 @@
+name: "🐛 Bug report"
+description: "Report a reproducible bug in CombatKeepInventory (CKI)."
+title: "[Bug] "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a CombatKeepInventory issue! Please fill in the details below so maintainers can reproduce it.
+
+        **Latest stable release at template creation: 1.2.5.** If possible, reproduce the problem with the latest release before reporting.
+        **Security:** Never share server IPs, access tokens, passwords, player IP addresses, or unredacted personal data. Use code blocks for logs and YAML.
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked existing open and closed issues for duplicates.
+          required: true
+        - label: I tested with the latest compatible CKI release or explained why I could not.
+          required: true
+        - label: I removed credentials and personal information from logs/configuration.
+          required: true
+  - type: input
+    id: cki-version
+    attributes:
+      label: CombatKeepInventory version
+      description: "Exact version shown by /cki info or the plugin startup log."
+      placeholder: "1.2.5"
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected component
+      options:
+        - Bukkit / Paper / Spigot / Purpur backend
+        - Velocity proxy
+        - Bukkit–Velocity integration
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: server-version
+    attributes:
+      label: Minecraft and server software version
+      description: "Include software and exact build (e.g. Paper 1.21.1 build xxx, Velocity 3.4.x). If proxy-related, list BOTH proxy and backend versions."
+      placeholder: "Paper 1.20.1 build xxx; Velocity 3.4.x (if used)"
+    validations:
+      required: true
+  - type: input
+    id: java-version
+    attributes:
+      label: Java runtime version
+      description: "Paste output of java -version; list both proxy and backend Java versions if different."
+      placeholder: "OpenJDK 17.0.x / 21.0.x"
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Bug category
+      options:
+        - Inventory KEEP / DROP / PARTIAL / VANILLA
+        - Player kill attribution / death reason
+        - CombatTag / combat logout
+        - WorldGuard / PvP regions
+        - Velocity bridge / server switch / disconnect
+        - TNT / explosions / projectiles
+        - Commands / permissions / debug
+        - Configuration / reload / migration
+        - Startup / dependency / compatibility
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: "Describe the bug and its impact, including whether items were lost or duplicated."
+      placeholder: "When player A kills player B, player B drops inventory despite player-kill.action=KEEP."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: "Provide precise steps, including player count, combat conditions, worlds/regions, and commands."
+      placeholder: |
+        1. Set inventory.policies.player-kill.action to KEEP.
+        2. Restart the backend server.
+        3. Have player A attack and kill player B.
+        4. Observe the items dropped on death.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: "Player B retains inventory and no items are dropped."
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: "Player B's items are dropped, despite KEEP policy."
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: Relevant configuration
+      description: "Paste the affected sections from config.yml (especially inventory.policies, WorldGuard, bridge, and punishment). Redact sensitive values."
+      render: yaml
+      placeholder: |
+        inventory:
+          policies:
+            player-kill:
+              priority: 500
+              action: KEEP
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs and /cki debug output
+      description: "Paste complete relevant stack traces and debug messages, plus 20–30 surrounding lines. If no errors appear, write 'No console errors'."
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: plugins
+    attributes:
+      label: Related plugins and integrations
+      description: "List versions of WorldGuard, WorldEdit, PvPManager, EssentialsX, Geyser/Floodgate, and other combat/inventory plugins if installed."
+      placeholder: "WorldGuard 7.x; PvPManager x.y; ..."
+    validations:
+      required: false
+  - type: dropdown
+    id: reproduction-rate
+    attributes:
+      label: How often does this happen?
+      options:
+        - Every time
+        - Often
+        - Sometimes
+        - Only once
+        - Unknown
+    validations:
+      required: true
+  - type: textarea
+    id: isolation
+    attributes:
+      label: Additional troubleshooting
+      description: "Does it occur without other plugins, in a new world, outside WorldGuard regions, or without Velocity? Include any screenshots/video links."
+    validations:
+      required: false
